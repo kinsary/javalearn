@@ -43,6 +43,17 @@ public class JavaString {
 		// /////////////////////////////
 		System.out.println("-----------");
 
+		String x2 = new String("ab");
+		change(x2);
+		System.out.println(x2);
+
+		// /////////////////////////////
+		System.out.println("-----------");
+
+	}
+
+	public static void change(String x) {
+		x = "cd";
 	}
 
 }
