@@ -1,3 +1,8 @@
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 public class JavaString {
 
 	public static void main(String[] args) {
@@ -50,10 +55,73 @@ public class JavaString {
 		// /////////////////////////////
 		System.out.println("-----------");
 
+		int[] arr = new int[3];
+		System.out.println(arr.length);// length for array
+
+		String str = "abc";
+		System.out.println(str.length());// length() for string
+
+		// /////////////////////////////
+		System.out.println("-----------");
+
+		// How to Check if an Array Contains a Value in Java Efficiently?
+		// String[] array = new String[] { "CD", "BC", "EF", "DE", "AB" };
+
+		String[] array = new String[10000];
+
+		Random sr = new Random();
+		for (int i = 0; i < 10000; i++) {
+			array[i] = String.valueOf(sr.nextInt());
+		}
+
+		long startTime = System.nanoTime();
+		for (int i = 0; i < 10000; i++) {
+			useList(array, "A");
+		}
+		long endTime = System.nanoTime();
+		long duration = endTime - startTime;
+		System.out.println("useList: " + duration / 1000000);
+
+		startTime = System.nanoTime();
+		for (int i = 0; i < 10000; i++) {
+			useSet(array, "A");
+		}
+		endTime = System.nanoTime();
+		duration = endTime - startTime;
+		System.out.println("useList: " + duration / 1000000);
+
+		startTime = System.nanoTime();
+		for (int i = 0; i < 10000; i++) {
+			useLoop(array, "A");
+		}
+		endTime = System.nanoTime();
+		duration = endTime - startTime;
+		System.out.println("useList: " + duration / 1000000);
+
+		// maybe sorted list or tree or hashset more efficiently
+
+		// /////////////////////////////
+		System.out.println("-----------");
 	}
 
 	public static void change(String x) {
 		x = "cd";
 	}
 
+	public static boolean useList(String arr[], String targetValue) {
+		return Arrays.asList(arr).contains(targetValue);
+	}
+
+	public static boolean useSet(String arr[], String targetValue) {
+		Set<String> set = new HashSet<String>(Arrays.asList(arr));
+		return set.contains(targetValue);
+	}
+
+	public static boolean useLoop(String[] arr, String targetValue) {
+		for (String s : arr) {
+			if (s.equals(targetValue))
+				return true;
+		}
+		return false;
+	}
 }
